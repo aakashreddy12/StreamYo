@@ -5,7 +5,7 @@ import { supabase } from '@/lib/supabase';
 import { motion } from 'framer-motion';
 import { Plus, LogOut, Play, RefreshCw } from 'lucide-react';
 import CreateRoomModal from '@/components/CreateRoomModal';
-import Logo from '@/components/Logo';
+import Logo from '@/components/logo';
 
 interface Room {
   id: string;

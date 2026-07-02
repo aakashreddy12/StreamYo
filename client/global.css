@@ -1,0 +1,152 @@
+/** @import must precede all other statements */
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  /**
+   * Tailwind CSS theme - Dark Cinematic Mode
+   * tailwind.config.ts expects the following color variables to be expressed as HSL values.
+  */
+  :root {
+    --background: 240 10% 3.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 240 10% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 240 10% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 180 100% 50%;
+    --primary-foreground: 240 10% 3.9%;
+
+    --secondary: 260 100% 60%;
+    --secondary-foreground: 240 10% 3.9%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 180 100% 50%;
+    --accent-foreground: 240 10% 3.9%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 240 10% 12%;
+    --ring: 180 100% 50%;
+
+    --radius: 0.5rem;
+
+    --sidebar-background: 240 10% 5%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 180 100% 50%;
+    --sidebar-primary-foreground: 240 10% 3.9%;
+    --sidebar-accent: 260 100% 60%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-ring: 180 100% 50%;
+  }
+
+  .dark {
+    --background: 240 10% 3.9%;
+    --foreground: 210 40% 98%;
+
+    --card: 240 10% 8%;
+    --card-foreground: 210 40% 98%;
+
+    --popover: 240 10% 8%;
+    --popover-foreground: 210 40% 98%;
+
+    --primary: 180 100% 50%;
+    --primary-foreground: 240 10% 3.9%;
+
+    --secondary: 260 100% 60%;
+    --secondary-foreground: 240 10% 3.9%;
+
+    --muted: 217.2 32.6% 17.5%;
+    --muted-foreground: 215 20.2% 65.1%;
+
+    --accent: 180 100% 50%;
+    --accent-foreground: 240 10% 3.9%;
+
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 217.2 32.6% 17.5%;
+    --input: 240 10% 12%;
+    --ring: 180 100% 50%;
+    --sidebar-background: 240 10% 5%;
+    --sidebar-foreground: 210 40% 98%;
+    --sidebar-primary: 180 100% 50%;
+    --sidebar-primary-foreground: 240 10% 3.9%;
+    --sidebar-accent: 260 100% 60%;
+    --sidebar-accent-foreground: 210 40% 98%;
+    --sidebar-border: 217.2 32.6% 17.5%;
+    --sidebar-ring: 180 100% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html {
+    @apply dark;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+
+  :where(p, span, li, h1, h2, h3, h4, h5, h6, a, button, label, td, th) {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+
+  pre,
+  code {
+    overflow-x: auto;
+    white-space: pre;
+  }
+}
+
+@layer components {
+  .glassmorphism {
+    @apply backdrop-blur-md bg-white/5 border border-white/10 shadow-2xl;
+  }
+
+  .glow-neon-cyan {
+    @apply shadow-lg shadow-neon-cyan/20;
+  }
+
+  .glow-neon-purple {
+    @apply shadow-lg shadow-neon-purple/20;
+  }
+
+  .btn-cinema {
+    @apply px-6 py-2 rounded-lg font-semibold transition-all duration-300 ease-out;
+    @apply hover:scale-105 active:scale-95;
+    @apply focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-neon-cyan;
+  }
+
+  .btn-primary-cinema {
+    @apply btn-cinema bg-neon-cyan text-cinema-black hover:glow-neon-cyan;
+  }
+
+  .btn-secondary-cinema {
+    @apply btn-cinema border border-neon-cyan/50 text-neon-cyan hover:border-neon-cyan hover:bg-neon-cyan/10;
+  }
+
+  .input-cinema {
+    @apply w-full px-4 py-3 rounded-lg;
+    @apply bg-white/5 border border-white/10;
+    @apply text-foreground placeholder-muted-foreground;
+    @apply transition-all duration-300;
+    @apply focus:outline-none focus:border-neon-cyan focus:ring-1 focus:ring-neon-cyan/30 focus:bg-white/10;
+  }
+}

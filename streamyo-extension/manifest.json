@@ -1,0 +1,25 @@
+{
+  "manifest_version": 3,
+  "name": "StreamYo Unlocker",
+  "version": "1.0",
+  "description": "Bypasses X-Frame-Options to allow seamless watch parties in the Sye Arena.",
+  "permissions": [
+    "declarativeNetRequest",
+    "declarativeNetRequestFeedback"
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ],
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "declarative_net_request": {
+    "rule_resources": [
+      {
+        "id": "ruleset_1",
+        "enabled": true,
+        "path": "rules.json"
+      }
+    ]
+  }
+}

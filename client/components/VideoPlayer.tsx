@@ -99,25 +99,32 @@ export default function VideoPlayer({ room, userId }: VideoPlayerProps) {
     return () => document.removeEventListener('fullscreenchange', handleFullscreenChange);
   }, []);
 
-  const toggleFullscreen = () => {
-    if (!document.fullscreenElement) containerRef.current?.requestFullscreen().catch(console.error);
-    else document.exitFullscreen();
-  };
+const toggleFullscreen = () => {
+    const elem = containerRef.current;
+    
+    // Check if any element is currently in fullscreen
+    const isFullscreenActive = document.fullscreenElement || 
+                               (document as any).webkitFullscreenElement || 
+                               (document as any).mozFullScreenElement;
 
-  useEffect(() => {
-    if (!isFullscreen) {
-      setToastMessages([]);
-      return;
+    if (!isFullscreenActive) {
+      if (elem?.requestFullscreen) {
+        elem.requestFullscreen();
+      } else if ((elem as any).webkitRequestFullscreen) {
+        // Required for Safari/iOS
+        (elem as any).webkitRequestFullscreen();
+      } else if (videoRef.current?.webkitEnterFullscreen) {
+        // Fallback for iOS Safari which sometimes forces video-only fullscreen
+        videoRef.current.webkitEnterFullscreen();
+      }
+    } else {
+      if (document.exitFullscreen) {
+        document.exitFullscreen();
+      } else if ((document as any).webkitExitFullscreen) {
+        (document as any).webkitExitFullscreen();
+      }
     }
-    const channel = supabase
-      .channel(`fullscreen-chat-${room.id}`)
-      .on('postgres_changes', { event: 'INSERT', schema: 'public', table: 'messages', filter: `room_id=eq.${room.id}` }, (payload) => {
-          const newToast: ToastMessage = { id: payload.new.id, user_email: payload.new.user_email, text: payload.new.message_text };
-          setToastMessages(prev => [...prev.slice(-2), newToast]);
-          setTimeout(() => setToastMessages(prev => prev.filter(msg => msg.id !== newToast.id)), 5000);
-      }).subscribe();
-    return () => { channel.unsubscribe(); };
-  }, [isFullscreen, room.id]);
+  };
 
 
   // -------------- SIGNALING (SUPABASE WEBSOCKETS) --------------
